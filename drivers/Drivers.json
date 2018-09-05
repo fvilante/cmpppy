@@ -1,0 +1,160 @@
+{
+  "Header": {
+    "Format": "CmppDrivers",
+    "Schema_version": "0.0.1"
+  },
+  "Drivers": [
+    {
+      "Info": {
+        "uid": "CMPP00LG",
+        "Version": "0.0.1",
+        "Caption": "Driver MemMap CMPP00LG",
+        "Target": "CMPP00LG"
+      },
+      "Parameters": [
+        {
+          "Description": {
+            "uid": "Posicao_inicial",
+            "Caption": "Posicao Inicial",
+            "Doc": "Posicao inicial do movimento, normalmente mais proxima ao motor."
+          },
+          "MetaData": {
+            "Interfaces": [
+              "MovimentadorGenerico"
+            ],
+            "Tags": [
+              "ParametrosDeMovimento"
+            ]
+          },
+          "MemRegion": {
+            "StartWord": 80,
+            "StartBit": 0,
+            "BitLength": 16
+          },
+          "TypeCast": {
+            "Type": "UInt16",
+            "Limits": {
+              "Maximum": 13000,
+              "Minimum": 0
+            }
+          },
+          "Units": {
+            "UOM": "Pulses"
+          }
+        },
+        {
+          "Description": {
+            "uid": "Reducao_da_corrente_de_repouso",
+            "Caption": "Reducao da corrente de repouso",
+            "Doc": "Utilize para minimizar o aquecimento do motor, e maximizar vida útil. Atenção: A redução da corrente em enquanto o motor estiver parado reduz sua capacidade de resistir forças externas sejam estas dinamicas ou estaticas."
+          },
+          "MetaData": {
+            "Interfaces": [
+              "MovimentadorGenerico"
+            ],
+            "Tags": [
+              "ConfiguracaoDeEixo"
+            ]
+          },
+          "MemRegion": {
+            "StartWord": 96,
+            "StartBit": 14,
+            "BitLength": 1
+          },
+          "TypeCast": {
+            "Type": "OneOf",
+            "Options": [
+              {
+                "Label": "Desligado",
+                "Value": 0
+              },
+              {
+                "Label": "Ligado",
+                "Value": 1
+              }
+            ]
+          },
+          "Units": {
+            "UOM": "Pulses"
+          }
+        }
+      ]
+    },
+    {
+      "Info": {
+        "uid": "CMPP00LG",
+        "Version": "0.0.1",
+        "Caption": "Driver MemMap CMPP00LG",
+        "Target": "CMPP00LG"
+      },
+      "Parameters": [
+        {
+          "Description": {
+            "uid": "Posicao_inicial",
+            "Caption": "Posicao Inicial",
+            "Doc": "Posicao inicial do movimento, normalmente mais proxima ao motor."
+          },
+          "MetaData": {
+            "Interfaces": [
+              "MovimentadorGenerico"
+            ],
+            "Tags": [
+              "ParametrosDeMovimento"
+            ]
+          },
+          "MemRegion": {
+            "StartWord": 80,
+            "StartBit": 0,
+            "BitLength": 16
+          },
+          "TypeCast": {
+            "Type": "UInt16",
+            "Limits": {
+              "Maximum": 13000,
+              "Minimum": 0
+            }
+          },
+          "Units": {
+            "UOM": "Pulses"
+          }
+        },
+        {
+          "Description": {
+            "uid": "Reducao_da_corrente_de_repouso",
+            "Caption": "Reducao da corrente de repouso",
+            "Doc": "Utilize para minimizar o aquecimento do motor, e maximizar vida útil. Atenção: A redução da corrente em enquanto o motor estiver parado reduz sua capacidade de resistir forças externas sejam estas dinamicas ou estaticas."
+          },
+          "MetaData": {
+            "Interfaces": [
+              "MovimentadorGenerico"
+            ],
+            "Tags": [
+              "ConfiguracaoDeEixo"
+            ]
+          },
+          "MemRegion": {
+            "StartWord": 96,
+            "StartBit": 14,
+            "BitLength": 1
+          },
+          "TypeCast": {
+            "Type": "OneOf",
+            "Options": [
+              {
+                "Label": "Desligado",
+                "Value": 0
+              },
+              {
+                "Label": "Ligado",
+                "Value": 1
+              }
+            ]
+          },
+          "Units": {
+            "UOM": "Pulses"
+          }
+        }
+      ]
+    }
+  ]
+}
