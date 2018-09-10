@@ -843,7 +843,7 @@ if __name__ == "__main__":
         # ----------------------
 
     # ----------------------
-    from cmpp.impl.posReader import readPosTagTest
+    from impl.posReader import readPosTagTest
     paramBundle = readPosTagTest()
     avenue = FakeCmppAvenue(channel=3, port='COM1')
 

@@ -1,7 +1,7 @@
 #creates POS object into memory
 
 import toml
-from cmpp.impl.memmapping import CmppDriver, CmppParam, CmppParamBundle, dictToCmppParamList
+from impl.memmapping import CmppDriver, CmppParam, CmppParamBundle, dictToCmppParamList
 from typing import List, Dict, Optional
 
 
@@ -58,8 +58,8 @@ class PosFile:
 
 
 def readPosTagTest() -> List[CmppParam]:
-    from cmpp.impl.posReader import PosFile
-    from cmpp.impl.memmapping import Movimentador_Generico
+    from impl.posReader import PosFile
+    from impl.memmapping import Movimentador_Generico
     driver = CmppDriver("CMPP00LG", funcionality=Movimentador_Generico)
     pos = PosFile('../pos/standard.toml', driver)
     return pos.readTag('referenciar_z')
@@ -69,7 +69,7 @@ def readPosTagTest() -> List[CmppParam]:
 if __name__ == "__main__":
 
     #read pos file-tag
-    from cmpp.impl.memmapping import CmppDriver, Movimentador_Generico
+    from impl.memmapping import CmppDriver, Movimentador_Generico
     driver = CmppDriver("CMPP00LG", funcionality=Movimentador_Generico)
     pos = PosFile('../pos/standard.toml', driver)
     paramBundle = pos.readTag('referenciar_z')

@@ -39,6 +39,8 @@ class Header(NamedTuple):
 
 Drivers = List[Driver]
 
+
+#This is the main object
 class DriversDataObject(NamedTuple):
     Header: Header
     Drivers: Drivers
