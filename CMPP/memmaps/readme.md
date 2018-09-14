@@ -19,7 +19,7 @@ conjunto de pares [*chave-valor*][3].
 ## Introdução
 
 O texto introdutorio a seguir apresenta alguamas questões sobre o design do formato, caso queira pode pular direto para
-a seccao [CMPP MemMap Especificacao][]
+a [Especificacao](#cmpp-memmap-especificacao)
 
 
 ### Pares *Chave-Valor*
@@ -27,7 +27,8 @@ a seccao [CMPP MemMap Especificacao][]
 Os pares chave valor são altamente reutilizaveis e escalaveis em diversos cenários computacionais. Em Python por exemplo,
 um [Dict][1] é um padrão de dado chave-valor. O formato [JSON][2] é um formato muito utilizado por servidores na internet, e
 também é baseado no padrão chave-valor. Este padrão de dado pode ser utilizado para importar dados para os
-microcontroladores (desde traduzidos do formato texto, para o formato binario).
+microcontroladores (desde traduzidos do formato texto, para o formato binario). Servidores [RESTFul][RESTFul] é uma aplicação
+notável do formato JSON para chamada de funções de programação que são servidas pela internet.
 
 É interessante sempre que possível utilizar o padrão Chave-Valor para representar conjunto de dados em qualquer plataforma,
 pois isto também economizará tempo de desenvolvimento. O Python tem em sua biblioteca padrão, ferramentas capazes de
@@ -36,6 +37,7 @@ formato.
 
 [1]: https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 [2]: https://en.wikipedia.org/wiki/JSON
+[RESTFul]: https://en.wikipedia.org/wiki/Representational_state_transfer
 
 
 
@@ -58,8 +60,9 @@ to map unambiguously to a hash table. TOML should be easy to parse into data str
 
 ```
 *OBS: Outros formatos como o .CSV, .XLS, .DB foram avaliados, porém este dado possui uma característica polimórfica no
-campo *TypeCast* (detalhado abaixo) que é difícil de expressar em .CSV, e em .XLS/.DB apesar de possível não é tão
-trivial quanto um formato 'TOML' + 'Editor de Texto'*
+campo *TypeCast* (o tipo de dado que ele especifica pode variar) e portanto é mais difícil de expressar nestes formatos
+do que em TOML, além de este último não exigir ferramentas adicionais além de um editor de textos, o que facilita
+manuseio em campo.
 ```
 
 O ponto contra ao formato TOML é que ele por ser mais recente não é tão popular quanto o formato JSON (que possui
@@ -80,6 +83,13 @@ versao TOML escolhida.
 
 [6]: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.5.0.md
 [7]: https://github.com/sdispater/tomlkit
+
+#### Plugins
+
+É possível encontrar plugins para edição do formato TOML para IDE's de edicao de codigo-fonte, como por exemplo o
+[PyCharm](https://www.jetbrains.com/pycharm/).
+
+![Drag Racing](example_plugin.jpg)
 
 
 ## CMPP MemMap Especificacao
@@ -108,7 +118,8 @@ Este arquivo possui duas seções: *Header* e *Parameters*, no header temos as i
 versoes, e em Parameters estão definidos todos os parametros em termos de seus nomes, tipos, posicoes de memoria e
 comprimentos de dados no CMPP, etc.
 
-Este é um exemplo de arquivo de configuracao *(os comentarios podem ser omitidos no arquivo real)*:
+Abaixo um exemplo de arquivo de configuracao, *os comentarios poderão ser omitidos*, as chaves do arquivo TOML (palavras
+em inglês) são *case-sensitive* (letras maiusculas ou minusculas são distintas):
 
 ```toml
 title = "Memmap do driver CMPP00LG"  # Qualquer informacao pode estar no título
@@ -119,58 +130,58 @@ title = "Memmap do driver CMPP00LG"  # Qualquer informacao pode estar no título
     Driver.Revision = [0,0,1]            # Revisao deste driver em relacao ao software CMPP
     Driver.Target = "CMPP00LG"           # Qual versao do AVR este driver especifica
 
-[[Parameter]]                            # Todo parametro começa com esta chave
-    [[Parameter.Description]]
-        UUID = "Posicao_inicial"         # Esta é a chave única deste parametro, não pode conter outro igual no arquivo.
-                                         # é destinado a ser usado dentro da linguagem de programação pelo programador
-                                         # não deverá conter espaços, acentos ou caracteres especiais.
-        Caption = "Posicao inicial"      # Texto para ser apresentado ao cliente/humano
-        Doc = "'Posicao inicial' normalmente é a mais proxima ao motor"   # Dica de uso do comando
-    [[MetaData]]
-        Interface = ['Movimentador Generico']   # Define um modo de acesso aos parametros. Permite que varios parametros
-                                                # possam usar uma mesma posicao de memória. Pode haver mais de um por
-                                                # parametro.
-        Tag = ['Parametros de Movimento']       # Uma TAG é apena uma modo conveniente de filtrar grupos de parametros
-                                                # Pode-se estabelecer mais de uma tag por parametro.
-    [[MemRegion]]               # MemRegion é o parametro mais importante, ele indica qual bloco de memoria ontem
-                                # a informação que queremos
-        StartWord = 80          # Classsicamente chamado de 'Comando' nas versões classicas do protocolo CMPP
-        StartBit = 0            # Uma vez localizada a 'word' em qual bit começa a informação que queremos
-        BitLength = 16          # A partir do 'StartBit' quantos bits é o comprimento da nossa informação
-    [[Default]]
-        Value = 10               # Um valor válido recomendado para o parãmetro caso não exista outro disponível
-    [[TypeCast]]                # Existem basicamente 2 TypeCasts disponíveis, e eles podem ser extendidos em versões
-                                # posteriores
-        Type = 'Uint16'         # Neste caso usamos um 'Inteiro positivo de 16 bits'
-        Value.Min = 0           # Mínimo valor aceitável
-        Value.Max = 13000       # Máximo. Caso valor esteja fora deste range não será enviado para o CMPP, e se
-                                # for lido não será considerado um parâmetro válido
-                                # Esta informação pode ser útil para compactar os dados em plataformas microcontroladas
-
-# Abaixo a versão sem comentários
 
 [[Parameter]]
-    [[Parameter.Description]]
+    [Parameter.Description]
         UUID = "Posicao_final"
         Caption = "Posicao final"
         Doc = "Posicao final do movimento, normalmente mais afastada ao motor"
-    [[MetaData]]
+    [Parameter.MetaData]
         Interface = ['Movimentador Generico']
         Tag = ['Parametros de Movimento']
-    [[MemRegion]]
+    [Parameter.MemRegion]
         StartWord = 81
         StartBit = 0
         BitLength = 16
-    [[Default]]
+    [Parameter.Default]
         Value = 100
-    [[TypeCast]]
+    [Parameter.TypeCast]
         Type = 'Uint16'
         Value.Min = 0
         Value.Max = 13000
 
-# etc... quantos parametros mais forem necessarios
+
+# No proximo parametro abaixo adicionamos comentarios...
 
 ```
+
+
+#### [[Parameter]]
+Todo parametro começa com esta chave
+
+##### Parameter
+* *UUID*: Esta é a chave única deste parametro, não pode conter outro igual no arquivo. É destinado a ser usado dentro da
+linguagem de programação pelo programador não deverá conter espaços, acentos ou caracteres especiais.
+* *Caption*: Texto para ser apresentado ao cliente/humano.
+* *Doc*: Dica de uso do comando.
+* *Interface*: Define um modo de acesso aos parametros. Permite que varios parametros possam usar uma mesma posicao de
+memória. Pode haver mais de um por parametro.
+* *Tag*: Uma TAG é apena uma modo conveniente de filtrar grupos de parametros. Pode-se estabelecer mais de uma tag por parametro.
+* *MemRegion*: MemRegion é o parametro mais importante, ele indica qual bloco de memoria ontem a informação que queremos.
+* *StartWord*: Classsicamente chamado de 'Comando' nas versões classicas do protocolo CMPP.
+* *StartBit*: Uma vez localizada a 'word' em qual bit começa a informação que queremos.
+* *BitLength*: A partir do 'StartBit' quantos bits é o comprimento da nossa informação.
+* *Value*: Um valor válido recomendado para o parãmetro caso não exista outro disponível.
+* *TypeCast* Existem basicamente 2 TypeCasts disponíveis, e eles podem ser extendidos em versões posteriores.
+* *Type*:
+** 'Uint16' :Neste caso usamos um 'Inteiro positivo de 16 bits'
+*** Value.Min: Mínimo valor aceitável
+*** Value.Max: Máximo. Caso valor esteja fora deste range não será enviado para o CMPP, e se for lido não será
+considerado um parâmetro válido. Esta informação pode ser útil para compactar os dados em plataformas microcontroladas
+
+### TypeCast
+
+Os formatos de TypeCast são os descritos a seguir: 'Uint16', 'oneOf' [detalhar mais esta parte]
 
 
 ### C++ / AVR
