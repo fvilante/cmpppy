@@ -250,6 +250,7 @@ Um valor inteiro (positivo de 16 bits) que indica quantos bits a partir de Start
 do parametro.
 
 Exemplo:
+
 StartWord | StartBit | BitLen | Comentario
 :-:|:-:|:-:|:--
 80 | 0 | 16 | Representa uma regiao de memoria de 16 bits que comeca no bit D0 do endereço word 80
