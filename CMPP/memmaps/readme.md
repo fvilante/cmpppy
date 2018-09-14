@@ -89,7 +89,7 @@ versao TOML escolhida.
 É possível encontrar plugins para edição do formato TOML para IDE's de edicao de codigo-fonte, como por exemplo o
 [PyCharm](https://www.jetbrains.com/pycharm/).
 
-![Imagem](../example_plugin.jpg)
+![Imagem](https://github.com/fvilante/cmpppy/blob/develop/CMPP/memmaps/example_plugin.png)
 
 
 ## CMPP MemMap Especificacao
