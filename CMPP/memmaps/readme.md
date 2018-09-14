@@ -18,6 +18,9 @@ conjunto de pares [*chave-valor*][3].
 
 ## Introdução
 
+O texto introdutorio a seguir apresenta alguamas questões sobre o design do formato, caso queira pode pular direto para
+a seccao [CMPP MemMap Especificacao][]
+
 
 ### Pares *Chave-Valor*
 
@@ -34,15 +37,21 @@ formato.
 [1]: https://docs.python.org/3/tutorial/datastructures.html#dictionaries
 [2]: https://en.wikipedia.org/wiki/JSON
 
-Formato TOML
 
 
-### TOML
+### Formato TOML
 
 
 [O formato TOML][4] foi escolhido por além dele atender os requisitos apresentados acima, ele tem como foco a facilidade
 semantica em que apresenta as informacoes. Ele é muito parecido com o antigo [formato .INI][5] de configuracao do Windows,
 porém mais poderoso por permitir maior nível de 'aninhamento' de dados *('nesting' em ingles)*.
+
+
+Os objetivos do formato oficialmente são definidos como:
+```
+"TOML aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed
+to map unambiguously to a hash table. TOML should be easy to parse into data structures in a wide variety of languages."
+```
 
 [4]: https://github.com/toml-lang/toml/tree/v0.5.0#user-content-table
 [5]: https://en.wikipedia.org/wiki/INI_file
@@ -53,10 +62,13 @@ campo *TypeCast* (detalhado abaixo) que é difícil de expressar em .CSV, e em .
 trivial quanto um formato 'TOML' + 'Editor de Texto'*
 ```
 
+O ponto contra ao formato TOML é que ele por ser mais recente não é tão popular quanto o formato JSON (que possui
+inclusive boas ferramentas on-line para edição) e possui muitos blogs em português o detalhando. Porém os bibliotecas
+TOML foram consideradas maduras o suficiente para a tarefa exigida, e a facilidade de uso dispensaria consultas em
+português. Além disto é possível converter de TOML para JSON e vice-versa com facilidade. Alem disto
+uma cópia deste arquivo de instrucoes pode ser deixada junto com os drivers MemMap (ou até dentro dele como comentário)
+para fácil consulta.
 
-```
-"TOML aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed to map unambiguously to a hash table. TOML should be easy to parse into data structures in a wide variety of languages."
-```
 
 #### Versao
 
