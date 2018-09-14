@@ -19,7 +19,7 @@ conjunto de pares [*chave-valor*][3].
 ## Introdução
 
 O texto introdutorio a seguir apresenta alguamas questões sobre o design do formato, caso queira pode pular direto para
-a seccao [CMPP MemMap Especificacao][]
+a seccao [CMPP MemMap Especificacao](#user-content-CMPP-MemMap-Especificacao)
 
 
 ### Pares *Chave-Valor*
