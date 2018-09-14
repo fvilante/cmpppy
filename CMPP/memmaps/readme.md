@@ -133,6 +133,25 @@ title = "Memmap do driver CMPP00LG"  # Qualquer informacao pode estar no título
 
 [[Parameter]]
     [Parameter.Description]
+        UUID = "Posicao_inicial"
+        Caption = "Posicao inicial"
+        Doc = "Posicao inicial do movimento, normalmente mais proxima ao motor"
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ['Parametros de Movimento']
+    [Parameter.MemRegion]
+        StartWord = 80
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
         UUID = "Posicao_final"
         Caption = "Posicao final"
         Doc = "Posicao final do movimento, normalmente mais afastada ao motor"
@@ -150,8 +169,8 @@ title = "Memmap do driver CMPP00LG"  # Qualquer informacao pode estar no título
         Value.Min = 0
         Value.Max = 13000
 
+# Adicionar mais quantos parametros forem necessários...
 
-# No proximo parametro abaixo adicionamos comentarios...
 
 ```
 
