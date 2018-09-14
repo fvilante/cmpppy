@@ -11,7 +11,7 @@ Objetivo
 
 O formato MemMap objetiva especificar as funcionalidades de um sistema CMPP, num formato que seja editável em qualquer
 editor de textos ASCII, e numa semantica que seja obvia. O formato MemMap deve ser iniquivocamente mapeável para um
-conjunto de pares [*chave-valor*][3].
+conjunto de pares [chave-valor][3].
 
 [3] https://en.wikipedia.org/wiki/Attribute%E2%80%93value_pair.
 
