@@ -17,7 +17,10 @@ class Byte:
     def __call__(self, *args, **kwargs):
         return self.value
 
-    def _bit(self, bitNumber) -> bool:
+    def __bytes__(self):
+        return bytes([self._byte])
+
+    def bit(self, bitNumber) -> bool:
         return self._byte >> bitNumber & 0x01
 
     def __eq__(self, other):
@@ -39,28 +42,29 @@ class Byte:
 
     @property
     def d0(self):
-        return self._bit(0)
+        return self.bit(0)
     @property
     def d1(self):
-            return self._bit(1)
+            return self.bit(1)
     @property
     def d2(self):
-        return self._bit(2)
+        return self.bit(2)
     @property
     def d3(self):
-            return self._bit(3)
+            return self.bit(3)
     @property
     def d4(self):
-        return self._bit(4)
+        return self.bit(4)
     @property
     def d5(self):
-            return self._bit(5)
+            return self.bit(5)
     @property
     def d6(self):
-        return self._bit(6)
+        return self.bit(6)
     @property
     def d7(self):
-        return self._bit(7)
+        return self.bit(7)
+
 
 
 Bytes = List[Byte]

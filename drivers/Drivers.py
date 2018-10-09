@@ -95,7 +95,7 @@ if __name__ == "__main__":
     print(d)
     print("***********")
 
-    # drivers
+    # MemMap
     ds = drivers(dat)
     print(ds)
 

@@ -351,7 +351,7 @@ class PacoteDeRetorno(CorePacket):
 # -----------------------------------------------------------------
 
 from time import process_time
-# Async countdown-timer
+# async_j countdown-timer
 class CountDownTimer:
     def __init__(self, timeMiliseconds: int):
         self._timeToCount = timeMiliseconds
@@ -417,7 +417,7 @@ class TransactionReceptionPacketAnalyzerHelper:
         return self._receivedPacket
 
     # main function
-    def analyze(self, data: bytes, transmittedPacket: PacoteDeTransmissao)
+    def analyze(self, data: bytes, transmittedPacket: PacoteDeTransmissao):
         # Note: PacoteDeTransmissao is given as a context to reception
         #       analyzing.
         # if an error has already occurred or if packet reception is
@@ -466,7 +466,7 @@ class TransactionReceptionPacketAnalyzerHelper:
 # note:     This is command-pattern-interface mixed with a template-pattern
 #           for timer-in control. Base class also offer error-reporting facility
 # note2:    'Sync' in this case means it is synched in relation to
-#           remote-cmpp-server, but Async in relation  to host-cpu processing
+#           remote-cmpp-server, but async_j in relation  to host-cpu processing
 # sub-classes:  Must implement __doTransaction, and call registerErrorReport
 #               if any error occur (use also createErrorReport() helper class)
 #               if communication is finished and packet is valid, sub-class must

@@ -1,0 +1,739 @@
+# CMPP MemMap Driver File
+
+[Header]
+    UUID = "CMPP00LG"  # Todo: I Must include this line on documentation
+    File.Format.Type = "CMPPMemMapFile"  # Formato deste arquivo de texto
+    File.Format.Version = [0,0,1]        # Versao desta especificacao
+    Driver.Revision = [0,0,1]            # Revisao deste driver em relacao ao software CMPP
+    Driver.Target = "CMPP00LG"           # Qual versao do AVR este driver especifica
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_inicial"
+        Caption = "Posicao inicial"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Movimento"]
+    [Parameter.MemRegion]
+        StartWord = 80
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_final"
+        Caption = "Posicao final"
+        Doc = "Posicao final do movimento, normalmente mais afastada ao motor"
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ['Parametros de Movimento']
+    [Parameter.MemRegion]
+        StartWord = 81
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 100
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Aceleracao_de_avanco"
+        Caption = "Aceleracao de avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ['Parametros de Movimento']
+    [Parameter.MemRegion]
+        StartWord = 82
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 100
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Aceleracao_de_retorno"
+        Caption = "Aceleracao de retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Movimento"]
+    [Parameter.MemRegion]
+        StartWord = 83
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Velocidade_de_avanco"
+        Caption = "Velocidade de avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Movimento"]
+    [Parameter.MemRegion]
+        StartWord = 84
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Velocidade_de_retorno"
+        Caption = "Velocidade de retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Movimento"]
+    [Parameter.MemRegion]
+        StartWord = 84
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Numero_de_mensagens_no_avanco"
+        Caption = "Numero de mensagens no avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 86
+        StartBit = 8
+        BitLength = 8
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 255
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Numero_de_mensagens_no_retorno"
+        Caption = "Numero de mensagens no retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 86
+        StartBit = 0
+        BitLength = 8
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 255
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_da_primeira_impressao_no_avanco"
+        Caption = "Posicao da primeira impressao no avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 87
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_da_primeira_impressao_no_retorno"
+        Caption = "Posicao da primeira impressao no retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 88
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_da_ultima_impressao_no_avanco"
+        Caption = "Posicao da ultima impressao no avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 89
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Posicao_da_ultima_impressao_no_retorno"
+        Caption = "Posicao da ultima impressao no retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 90
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Largura_do_sinal_de_impressao"
+        Caption = "Largura do sinal de impressao"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Impressao"]
+    [Parameter.MemRegion]
+        StartWord = 91
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Tempo_para_start_automatico"
+        Caption = "Tempo para start automatico"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Ciclo"]
+    [Parameter.MemRegion]
+        StartWord = 92
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Tempo_para_start_externo"
+        Caption = "Tempo para start externo"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Ciclo"]
+    [Parameter.MemRegion]
+        StartWord = 93
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Antecipacao_da_saida_de_start"
+        Caption = "Antecipacao de saida de start"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Parametros de Ciclo"]
+    [Parameter.MemRegion]
+        StartWord = 94
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Janela_de_protecao_para_o_giro"
+        Caption = "Janela de protecao para o giro"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 97
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Numero_de_pulsos_por_giro_do_motor"
+        Caption = "Numero de pulsos por giro do motor"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 98
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Valor_da_posicao_de_referencia"
+        Caption = "Valor da posicao de referencia"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 99
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Aceleracao_de_referencia"
+        Caption = "Aceleracao de referencia"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 100
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Velocidade_de_referencia"
+        Caption = "Velocidade de referencia"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 101
+        StartBit = 0
+        BitLength = 16
+    [Parameter.Default]
+        Value = 10
+    [Parameter.TypeCast]
+        Type = 'Uint16'
+        Value.Min = 0
+        Value.Max = 13000
+
+
+
+# CMDFLASH = 96(0x60)
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Start_automatico_no_avanco"
+        Caption = "Start automatico no avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 0
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Start_automatico_no_retorno"
+        Caption = "Start automatico no retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 1
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Saida_de_start_no_avanco"
+        Caption = "Saida de start no avanco"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 2
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Saida_de_start_no_retorno"
+        Caption = "Saida de start no retorno"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 3
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Entrada_de_start_externo"
+        Caption = "Entrada de start externo"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 4
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Logica_de_start_externo"
+        Caption = "Logica de start externo"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 5
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Aberto"},
+                    {Value = 1, Caption = "Fechado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Entrada_de_start_entre_eixos"
+        Caption = "Entrada de start entre eixos"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 6
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Referencia_pelo_start_externo"
+        Caption = "Referencia pelo start externo"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 7
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Logica_de_sinal_de_impressao"
+        Caption = "Logica de sinal de impressao"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 8
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Aberto"},
+                    {Value = 1, Caption = "Fechado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Logica_de_sinal_de_reversao"
+        Caption = "Logica de sinal de reversao"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 9
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Aberto"},
+                    {Value = 1, Caption = "Fechado"} ]
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Selecao_de_mensagem_via_serial"
+        Caption = "Selecao de mensagem via serial"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 10
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Reversao_de_mensagem_via_serial"
+        Caption = "Reversao de mensagem via serial"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 11
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Giro_com_funcao_de_protecao"
+        Caption = "Giro com funcao de protecao"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 12
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Giro_com_funcao_de_correcao"
+        Caption = "Giro com funcao de correcao"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 13
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"}]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Reducao_da_corrente_de_repouso"
+        Caption = "Reducao da corrente de repouso"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 14
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Desligado"},
+                    {Value = 1, Caption = "Ligado"} ]
+
+[[Parameter]]
+    [Parameter.Description]
+        UUID = "Modo_continuo_passo_a_passo"
+        Caption = "Modo continuo ou passo-a-passo"
+        Doc = ""
+    [Parameter.MetaData]
+        Interface = ['Movimentador Generico']
+        Tag = ["Configuracao De Eixo"]
+    [Parameter.MemRegion]
+        StartWord = 96
+        StartBit = 15
+        BitLength = 1
+    [Parameter.Default]
+        Value = 0
+    [Parameter.TypeCast]
+        Type = 'OneOf'
+        Options = [ {Value = 0, Caption = "Continuo"},
+                    {Value = 1, Caption = "Passo-a-Passo"} ]
+
+
+
+
+
+
+
+
+

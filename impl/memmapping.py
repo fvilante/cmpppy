@@ -1,4 +1,4 @@
-# Le todos os drivers e encapsula em memmap requisitado
+# Le todos os MemMap e encapsula em memmap requisitado
 
 import toml
 from drivers.CMPP00LG import Movimentador_Generico, CmppEnumInterface
@@ -7,7 +7,7 @@ from typing import Dict, List, Union, Optional
 
 
 
-# todo: send this configuration to a toml. Include open-ended drivers
+# todo: send this configuration to a toml. Include open-ended MemMap
 ConfigFile = {
     "CMPP00LG": '../drivers/CMPP00LG.toml',
 }

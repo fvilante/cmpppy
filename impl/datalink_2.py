@@ -600,7 +600,7 @@ class CmppDecoder(BinaryDecoder, Finishable, Errable):
         # initial state
         self._state = self._State.NOISE  #before a start_block everything is considered noise
         self._codeStream: List[BaseCode] = [] # list of decoded objects
-        self._rawDataObject: bytes = b'' #data must be stored between async calls to decode
+        self._rawDataObject: bytes = b'' #data must be stored between async_j calls to decode
         self._noiseData: bytes = b'' # any information not recognized is considered noise
         self._lastByteHasBeenDoubleEsc: bool = False
         self._rawData: bytes = b''

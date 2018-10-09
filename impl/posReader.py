@@ -2,14 +2,14 @@
 
 import toml
 from impl.memmapping import CmppDriver, CmppParam, CmppParamBundle, dictToCmppParamList
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 
 
 
-def _readPosFile(file: str): #-> Dict[Optional[...]]:
+def _readPosFile(file: str) -> Optional[Dict[str, Any]]:
     with open(file, 'r') as myfile:
-        dict_ = toml.load(myfile)
-    return dict_
+        d = toml.load(myfile)
+    return d
 
 
 

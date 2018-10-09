@@ -15,7 +15,7 @@ from stack.JuliaProtocol.FrameInfo import *
 # ------------------
 
 
-
+str
 
 class CheckSum(NamedTuple):
     check_sum: List[Byte]

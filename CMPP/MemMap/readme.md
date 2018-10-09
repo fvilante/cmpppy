@@ -16,91 +16,12 @@ conjunto de pares [*chave-valor*][3].
 [3]: https://en.wikipedia.org/wiki/Attribute%E2%80%93value_pair.
 
 
-## Introdução
-
-O texto introdutorio a seguir apresenta alguamas questões sobre o design do formato, caso queira pode pular direto para
-a [Especificacao](#cmpp-memmap-especificacao)
-
-
-### Pares *Chave-Valor*
-
-Os pares chave valor são altamente reutilizaveis e escalaveis em diversos cenários computacionais. Em Python por exemplo,
-um [Dict][1] é um padrão de dado chave-valor. O formato [JSON][2] é um formato muito utilizado por servidores na internet, e
-também é baseado no padrão chave-valor. Este padrão de dado pode ser utilizado para importar dados para os
-microcontroladores (desde traduzidos do formato texto, para o formato binario). Servidores [RESTFul][RESTFul] é uma aplicação
-notável do formato JSON para chamada de rotinas executadas em servidores na internet, e em [Micro-servicos][micro].
-
-É interessante sempre que possível utilizar o padrão Chave-Valor para representar conjunto de dados em qualquer plataforma,
-pois isto também economizará tempo de desenvolvimento. O Python tem em sua biblioteca padrão, ferramentas capazes de
-ler e gravar formato JSON e como já dito o [Dict][2] (Dicionário Python) pode fazer várias manipulações neste tipo de
-formato.
-
-[1]: https://docs.python.org/3/tutorial/datastructures.html#dictionaries
-[2]: https://en.wikipedia.org/wiki/JSON
-[RESTFul]: https://en.wikipedia.org/wiki/Representational_state_transfer
-[micro]: https://en.wikipedia.org/wiki/Microservices
-
-
-
-### Formato TOML
-
-
-[O formato TOML][4] foi escolhido por além dele atender os requisitos apresentados acima, ele tem como foco a facilidade
-semantica em que apresenta as informacoes. Ele é muito parecido com o antigo [formato .INI][5] de configuracao do Windows,
-porém mais poderoso por permitir maior nível de 'aninhamento' de dados *('nesting' em ingles)*.
-
-
-Os objetivos do formato oficialmente são definidos como:
-```
-"TOML aims to be a minimal configuration file format that's easy to read due to obvious semantics. TOML is designed
-to map unambiguously to a hash table. TOML should be easy to parse into data structures in a wide variety of languages."
-```
-
-[4]: https://github.com/toml-lang/toml/tree/v0.5.0#user-content-table
-[5]: https://en.wikipedia.org/wiki/INI_file
-
-```
-*OBS: Outros formatos como o .CSV, .XLS, .DB foram avaliados, porém este dado possui uma característica polimórfica no
-campo *TypeCast* (o tipo de dado que ele especifica pode variar) e portanto é mais difícil de expressar nestes formatos
-do que em TOML, além de este último não exigir ferramentas adicionais além de um editor de textos, o que facilita
-manuseio em campo.
-```
-
-O ponto contra ao formato TOML é que ele por ser mais recente não é tão popular quanto o formato JSON (que possui
-inclusive boas ferramentas on-line para edição) e possui muitos blogs em português o detalhando. Porém os bibliotecas
-TOML foram consideradas maduras o suficiente para a tarefa exigida, e a facilidade de uso dispensaria consultas em
-português. Além disto é possível converter de TOML para JSON e vice-versa com facilidade. Alem disto
-uma cópia deste arquivo de instrucoes pode ser deixada junto com os drivers MemMap (ou até dentro dele como comentário)
-para fácil consulta.
-
-
-#### Versao
-
-A versão do TOML escolhida é a última disponível no momento, que a [v.0.5.0][6]
-
-A especificacao TOML possui implementacoes em codigo aberto no github em python, C++ e outras linguagens. De todos
-os drivers disponíveis foi adotado o [TOMLKIT][7] por apresentar excelente flexibilidade e compatibilidade com a
-versao TOML escolhida.
-
-[6]: https://github.com/toml-lang/toml/blob/master/versions/en/toml-v0.5.0.md
-[7]: https://github.com/sdispater/tomlkit
-
-#### Plugins
-
-É possível encontrar plugins para edição do formato TOML para IDE's de edicao de codigo-fonte, como por exemplo o
-[PyCharm](https://www.jetbrains.com/pycharm/).
-
-![Exemplo: example_plugin.png](https://github.com/fvilante/cmpppy/blob/develop/CMPP/memmaps/example_plugin.png)
-
-
 ## CMPP MemMap Especificacao
 
 
-Versao desta especificacao: [0.0.1]
-
 ### Modelo de dados
 
-O conceito de *chave-valor* foi aplicado ao conceito de mapa de memoria do CMPP. Portanto um CMPP é visto como um
+O conceito de *[chave-valor][chave-valor]* foi aplicado ao conceito de mapa de memoria do CMPP. Portanto um CMPP é visto como um
 bloco de memoria que possui chaves *(Parametros CMPP)* e cada chave possui um valor *(Inteiros, Opcoes, etc...
 Genericamente chamado: **TypeCast**)*.
 
@@ -108,13 +29,29 @@ Portanto 'Posicao Inicial' é um *Parametro CMPP*, 'Posicao Final' outro e assim
 
 O formato 'MemMap' define como interpretar um CMPP em termos de Parametros e Valores.
 
+
+[chave-valor]: https://en.wikipedia.org/wiki/Attribute%E2%80%93value_pair
+
+
 ### Especificacao
 
-Nenhum formato que seja invalido em TOML será valido em MemMap. A especificacao valida de formato válido TOML pode
-ser consultado [aqui][4] caso necessário. Porém o formato Toml/MemMap é fácil e pode ser utilizado apenas com a
-leitura dos próximos parágrafos.
+#### Intro
 
-Uma versao da CMPP é chamada genericamente de 'Target', e está diretamente associada com a versao do software em
+A especificacao MemMap foi desenhada tendo em vista:
+    * Desacoplamento com a [interface de usuario][ui]
+    * Genericidade de [casos de uso][uc]
+
+[ui]: https://en.wikipedia.org/wiki/User_interface
+[uc]: https://en.wikipedia.org/wiki/Use_case
+
+O formato MemMap é construído em cima do formato TOML[4], que é um formato bem simples de arquivo de configuracao em
+estilo texto. Portanto qualquer expressão que seja considerada *invalida* em TOML, também o será em MemMap. Este
+documento apresenta como representar um arquivo MemMap valido. O Formato TOML é simples e pode ser consultado
+[aqui][4] caso necessario.
+
+#### Detalhamento
+
+Uma versao CMPP é chamada genericamente de 'Target', e está diretamente associada com a versao do software em
 Assembly do AVR/CMPP. A relação é de um pra um.
 
 Um 'Target' possuirá apenas um arquivo TOML no formato 'MemMap' para o representar. O formato MemMap possui uma
@@ -124,7 +61,18 @@ Este arquivo possui duas seções: *Header* e *Parameters*, no header temos as i
 versão, e em Parameters estão definidos todos os parametros em termos de seus nomes, tipos, posicoes de memoria, etc
 
 Abaixo um exemplo de arquivo de configuracao, *os comentarios poderão ser omitidos*, as chaves do arquivo TOML (palavras
-em inglês) são *case-sensitive* (letras maiusculas ou minusculas são distintas):
+em inglês) são *case-sensitive* (letras maiusculas ou minusculas são distintas).
+
+Todos os campos são obrigatórios. A tabela TypeCast possui chaves que variam conforme o tipo de dado.
+
+Apesar deste formato apresentar alguns campos que podem ser usados para renderizacao em telas (como o Caption por exemplo),
+não é a intenção principal deste formato definir Presentational Layer dos dados a que se refere, e outras camadas
+de abstracao devem ser usadas para isto. A principal missao deste formato é representar as funcionalidades de um CMPP
+de modo conciso para o programador.
+
+A especificacao MemMap usa o estilo [Camel Case][camel] em suas palavras-chaves.
+
+[camel]: https://en.wikipedia.org/wiki/Camel_case
 
 ```toml
 title = "Memmap do driver CMPP00LG"  # Qualquer informacao pode estar no título
@@ -187,23 +135,22 @@ Todo parametro começa com esta palavra-chave.
 
 A *identacao* (tabulação no inicio das linhas) não é requisito necessário para a interpretacao do arquivo, porém é recomendável pois facilita leitura humana.
 
-##### Parameter
 
-###### UUID
+##### UUID
 Esta é a chave-única que especifica o parametro no arquivo. Um erro deverá ser gerado caso exista dois UUID iguais no
 mesmo arquivo MemMap.
 
 Este identificador único deverá conter apenas caracteres alfa-numericos [A_Z, a_z, 0_9, '_'] portanto sem acento. A
 palavra utilizada aqui será usada para acessar os parametros através da linguagem de programação.
 
-###### Caption
+##### Caption
 Texto para ser apresentado ao humano que expressa em curtas palavras a intenção do parametro.
 
-###### Doc
+##### Doc
 Dica de uso do comando.
 
 
-###### Interface
+##### Interface
 O conceito de interface é usado para permitir uma mascara de parametros. Onde o driver pode accessar e fazer modificações
 apenas aos parametros que pertencem aquela mascara.
 
@@ -216,40 +163,52 @@ Interface | Parametro | Posicao de Memoria (Word) | Tamanho da Regiao de Memoria
 `Movimentador Generico` | Posicao Inicial | 80 | 16
 `Movimentador Generico` | Posicao Final | 81 | 16
 `Movimentador Generico` | Tempo de Start Automatico | 82 | 16
-
-Interface | Parametro | Posicao de Memoria (Word) | Tamanho da Regiao de Memoria (em bits)
-:--|:--|:---:|:--:
+`Movimentador Generico` | Largura do sinal de impressao | 82 | 16
 `Dosador de Silicone` | Posicao Inicial | 80 | 8
 `Dosador de Silicone` | Posicao Final | 80 | 8
 `Dosador de Silicone` | Velocidade do bico | 82 | 16
 
+Note que as mesmas regioes de memoria estão sendo apontadas para finalidades distintas. Obviamente espera-se que apenas
+uma das duas interfaces sejam usadas de cada vez, e se as duas forem utilizadas numa mesma seção o mecanismo de
+orquestração de conflitos ocorre por fora do escopo desta especificacao.
+
+Mais de uma interface pode ser especificada por parametro. Porém uma mesma interface não pode ser especificada duas
+vezes.
 
 
-
-
-
-
-###### Tag
+##### Tag
 Uma TAG é apena uma modo conveniente de filtrar grupos de parametros. Pode-se estabelecer mais de uma tag por parametro.
+Existem algumas TAGs que são canonicas no CMPP clásico como:
 
-###### MemRegion
-MemRegion é o parametro mais importante, ele indica qual bloco de memoria ontem a informação que queremos.
+* Parametros de Movimento
+* Parametros de Impressao
+* Parametros de Ciclo
+* Parametros de Impressora
 
-###### StartWord
+Dentre outros
+
+Esta especificacao não entra no mérito de quais tags devem ou não serem usadas. Porém recomenda-se seguir na medida
+do possivel a convenção classica.
+
+##### MemRegion
+MemRegion é um dos parametro mais importantes, ele indica qual regiao de memoria contem a informação do parametro.
+
+##### StartWord
 Classsicamente chamado de 'Comando' nas versões classicas do protocolo CMPP. Representa o endereço da word que contem
 o dado do parametro. Porém mais de uma word pode ser endereçada (veja: BitLength](#bitlength)
 
 O valor é informado no formato decimal.
 
-###### StartBit
+##### StartBit
 Um número entre 0 e 16 que índica dentro da word apontada em [StartWord](#startword) a partir de qual bit comeca o
 dado referente ao parametro.
 
-###### BitLength
+##### BitLength
 Um valor inteiro (positivo de 16 bits) que indica quantos bits a partir de StartBit (inclusive) fazem parte do valor
 do parametro.
 
 Exemplo:
+
 StartWord | StartBit | BitLen | Comentario
 :-:|:-:|:-:|:--
 80 | 0 | 16 | Representa uma regiao de memoria de 16 bits que comeca no bit D0 do endereço word 80
@@ -259,26 +218,29 @@ StartWord | StartBit | BitLen | Comentario
 
 Desta forma [blocos de memoria desalinhados][memalign] e comprimento variavel podem ser especificados.
 
-[memalign]: https://en.wikipedia.org/wiki/Data_structure_alignment#Data_structure_padding
+[memalign]: https://en.wikipedia.org/wiki/Data_structure_alignment
 
 É importante notar que apenas regiões de memoria estão sendo especificadas. Este mecanismo nada fala sobre o conteúdo
 ou mesmo formato do dado dentro desta região de memoria. Este papel será efetuado pela chave [TypeCast](#TypeCast)
 
-###### Standard Value
+##### Standard Value
 Um valor válido recomendado para o parãmetro caso não exista outro disponível.
 A unidade de medida deste valor é `adimensional`. Ele representa um inteiro adimensional que será colocado na
 regiao de memoria especificada para o parametro.
-
-###### TypeCast
-Existem basicamente 2 TypeCasts disponíveis, outros podem surgir em versões posteriores. A interpretacao do TypeCast
-é completamente delegada pela função em run-time que estiver processando o arquivo no momento. Portanto a versão
-da função deve ser compativel com a versao de leitura.
 
 
 
 ### TypeCast
 
-Os formatos de TypeCast são os descritos a seguir: 'Uint16', 'oneOf'
+Enquanto o MemRegion indica *onde* está o dado, *TypeCast* informa qual é o dado. É através dele que é possível
+interpretar o que está dentro da região de memória especificada em *MemRegion*.
+
+Existem basicamente 2 TypeCasts disponíveis 'Uint16', 'OneOf' nesta versão do MemMap.
+
+OBS: A interpretacao do TypeCast é completamente delegada pela função em run-time que estiver processando o arquivo
+MemMap no momento. Portanto a versão da peça de software que lê e interpreta o arquivo MemMap, deve estar compatível
+com a versão do arquivo MemMap sendo lido.
+
 
 #### Type **Uint16**
 
@@ -310,7 +272,7 @@ Exemplo:
 ```
 
 
-#### Type **oneOf**
+#### Type **OneOf**
 
 Representa as situacoes onde o parametro é um conjunto de opcoes pré-definidos, por exemplo *ligado*/*desligado*, e
 cada opção está mapeada a um inteiro que será representado no mapa de memória.
@@ -318,12 +280,17 @@ cada opção está mapeada a um inteiro que será representado no mapa de memór
 Parametros do Tipo:
 * Array of: { Value, Caption }
 
+Esta array não poderá possuir um par Value/Caption
+com o mesmo valor. Value é inteiro positivo, e Caption
+é qualquer texto.
+
 Exemplo:
+
 ```toml
      # ...
 
     [Parameter.TypeCast]
-        Type = 'oneOf'
+        Type = 'OneOf'
         Options = [ { Value = 0, Caption = "Desligado"},
                     { Value = 1, Caption = "Ligado"} ]
 
@@ -344,6 +311,12 @@ contendo estar informacoes de modo compactado ou não, bem como os algoritmos de
 Poderia-se também criar um script em python para automaticamente ler o arquivo .ASM em assembly e gerar o
 arquivo MemMap que o representaria.
 
+## Sugestoes / Revisões
+
+Este documento esta em versão embrionária, qualquer sugestão de mulhoria é bem vinda. Você pode solicitar revisão
+através do 'ISSUE' no github.
+
+Flavio
 
 
 
